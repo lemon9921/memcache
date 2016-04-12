@@ -153,7 +153,7 @@ def main():
 
 if __name__ == "__main__":
 
-	host='172.16.200.98'
+	host='localhost'
 	port = 11211
 
 	timestamp = int(time.time())
