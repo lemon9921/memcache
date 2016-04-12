@@ -95,7 +95,7 @@ def  mget_stats():
 
 def  mget_slabs():
 	"""
-   	   @return: memcache slabs list
+   	   @return: memcache slabs dict
 	"""
 	c = Client((host,port), timeout=5)
 	slabs = c.get("stats slabs")
