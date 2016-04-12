@@ -124,7 +124,7 @@ def main():
 
 if __name__ == "__main__":
 
-	host='172.16.200.98'
+	host=''
 	port = 11211
 
 	main()
