@@ -85,7 +85,8 @@ def  mget_stats():
 	data = []
 	stats['usage'] = '%.2f' % float(100 * float(stats['bytes']) / float(stats['limit_maxbytes']))
 	try:
-		stats['get_hit_ratio'] = '%.2f' %float(100 * float(stats['get_hits']) / (float(stats['get_hits']) + float(stats['get_misses'])))
+		stats['get_hit_ratio'] = '%.2f' %float(100 * float(stats['get_hits']) / 
+											(float(stats['get_hits']) + float(stats['get_misses'])))
 	except ZeroDivisionError:
 		stats['get_hit_ratio'] = '0.0'
 	for key in 'usage','get_hit_ratio','evictions':
