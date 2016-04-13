@@ -129,14 +129,23 @@ def  mget_slabs():
 			}
 		k1 = slabs_one[4].split()[1].split(':')[1]
 		v1 = 100*(float(slabs_one[4].split()[-1]) / float(slabs_one[3].split()[-1]))
-		dict1[k1 + '_percent'] = '%.2f' %v1  
+		#dict1[k1 + '_percent'] = '%.2f' %v1  
+		dict3 =  {
+				'metric': '%s.%s%s' % (metric, k1 + '_percent', suffix),
+				'endpoint': endpoint,
+				'timestamp': timestamp,
+				'step': step,
+				'value': v1,
+				'counterType': 'COUNTER',
+				'tags': 'class slab value'
+			}
 		#dict2 = {slab_name:dict1}
 		dict2 =  {
 				'metric': '%s.%s%s' % (metric, 'slabs_', slab_name),
 				'endpoint': endpoint,
 				'timestamp': timestamp,
 				'step': step,
-				'value': dict1,
+				'value': [dict1, dict3],
 				'counterType': 'COUNTER',
 				'tags': 'slab status'
 			}
@@ -153,7 +162,7 @@ def main():
 
 if __name__ == "__main__":
 
-	host='localhost'
+	host=''
 	port = 11211
 
 	timestamp = int(time.time())
