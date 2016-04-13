@@ -136,7 +136,7 @@ def  mget_slabs():
                 'endpoint': endpoint,
                 'timestamp': timestamp,
                 'step': step,
-                'value': v1,
+                'value': '%.2f' % v1,
                 'counterType': 'COUNTER',
                 'tags': 'class slab value'
             }
