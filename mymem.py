@@ -89,8 +89,8 @@ def mget_stats():
                                                 (float(stats['get_hits']) + float(stats['get_misses'])))
     else:
         stats['get_hit_ratio'] = '0.0'
-
-    for key in 'usage', 'get_hit_ratio', 'evictions':
+    stats_list = ['usage', 'get_hit_ratio', 'evictions']
+    for key in stats_list:
         stats_dict = {
             'metric': '%s.total.%s' % (metric, key),
             'endpoint': endpoint,
