@@ -98,7 +98,7 @@ def mget_stats():
             'step': step,
             'value': stats[key],
             'counterType': 'GAUGE',
-            'tags': 'global status'
+            'tags': 'port=11211,metric=memcache'
         }
     data.append(stats_dict)
     return data
@@ -127,7 +127,7 @@ def mget_slabs():
             'step': step,
             'value': slab_pages_v,
             'counterType': 'GAUGE',
-            'tags': 'class slab value'
+            'tags': 'port=11211,metric=memcache'
         }
         slab_used_percent_name = slabs_one[4].split()[1].split(':')[1]
         slab_used_percent_value = 100 * (float(slabs_one[4].split()[-1]) / float(slabs_one[3].split()[-1]))
@@ -138,7 +138,7 @@ def mget_slabs():
             'step': step,
             'value': '%.2f' % slab_used_percent_value,
             'counterType': 'GAUGE',
-            'tags': 'class slab value'
+            'tags': 'port=11211,metric=memcache'
         }
 
         data.append(slab_pages_dict)
