@@ -148,9 +148,8 @@ def mget_slabs():
 
 
 def main():
-    data = mget_stats() + mget_slabs()
-    json.dump(data, sys.stdout)
-
+    mem_data = mget_stats() + mget_slabs()
+    json.dump(mem_data, sys.stdout)
 
 if __name__ == "__main__":
     host = bash("ps aux | grep memcache|grep -v grep |awk -F'-l' '{print $2}' |awk '{print $1}'").read()
@@ -158,7 +157,6 @@ if __name__ == "__main__":
 
     timestamp = int(time.time())
     step = 60
-    endpoint = host
+    endpoint = 'memcache-monitor'
     metric = 'memcache'
-
     main()
