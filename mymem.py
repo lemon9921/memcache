@@ -5,6 +5,7 @@ import socket
 import json
 import time
 import sys
+from os import popen as bash
 
 RECV_SIZE = 4096
 
@@ -82,17 +83,17 @@ def mget_stats():
         stat_value = i.split()[2]
         stats[stat_name] = stat_value
     data = []
-    stats['usage'] = '%.2f' % float(100 * float(stats['bytes']) / float(stats['limit_maxbytes']))
+    stats['usage'] = '{.2f}'.format(float(100 * float(stats['bytes']) / float(stats['limit_maxbytes'])))
     ###服务刚起是，访问可能为0##
     if (float(stats['get_hits']) + float(stats['get_misses'])) != 0:
-        stats['get_hit_ratio'] = '%.2f' % float(100 * float(stats['get_hits']) /
-                                                (float(stats['get_hits']) + float(stats['get_misses'])))
+        stats['get_hit_ratio'] = '{.2f}'.format(float(100 * float(stats['get_hits']) /
+                                                (float(stats['get_hits']) + float(stats['get_misses']))))
     else:
         stats['get_hit_ratio'] = '0.0'
     stats_list = ['usage', 'get_hit_ratio', 'evictions']
     for key in stats_list:
         stats_dict = {
-            'metric': '%s.total.%s' % (metric, key),
+            'metric': '{0}.total.{1}'.format(metric, key),
             'endpoint': endpoint,
             'timestamp': timestamp,
             'step': step,
@@ -121,7 +122,7 @@ def mget_slabs():
         slab_pages_k = slabs_one[2].split()[1].split(':')[1]
         slab_pages_v = slabs_one[2].split()[-1]
         slab_pages_dict = {
-            'metric': '%s.slabs.slab_%s.%s' % (metric, slab_name, slab_pages_k),
+            'metric': '{0}.slabs.slab_{1}.{2}'.format(metric, slab_name, slab_pages_k),
             'endpoint': endpoint,
             'timestamp': timestamp,
             'step': step,
@@ -132,11 +133,11 @@ def mget_slabs():
         slab_used_percent_name = slabs_one[4].split()[1].split(':')[1]
         slab_used_percent_value = 100 * (float(slabs_one[4].split()[-1]) / float(slabs_one[3].split()[-1]))
         slab_used_percent_dict = {
-            'metric': '%s.slabs.slab_%s.%s_percent' % (metric, slab_name, slab_used_percent_name),
+            'metric': '{0}.slabs.slab_{1}.{2}_percent'.format(metric, slab_name, slab_used_percent_name),
             'endpoint': endpoint,
             'timestamp': timestamp,
             'step': step,
-            'value': '%.2f' % slab_used_percent_value,
+            'value':'{.2f}'.format(slab_used_percent_value),
             'counterType': 'GAUGE',
             'tags': 'port=11211,metric=memcache'
         }
@@ -152,8 +153,8 @@ def main():
 
 
 if __name__ == "__main__":
-    host = ''
-    port = 11211
+    host = bash("ps aux | grep memcache|grep -v grep |awk -F'-l' '{print $2}' |awk '{print $1}'").read()
+    port = bash("ps aux | grep memcache|grep -v grep |awk -F'-p' '{print $2}' |awk '{print $1}'").read()
 
     timestamp = int(time.time())
     step = 60
