@@ -86,7 +86,7 @@ def mget_stats():
     stats['usage'] = '{.2f}'.format(float(100 * float(stats['bytes']) / float(stats['limit_maxbytes'])))
     ###服务刚起是，访问可能为0##
     if (float(stats['get_hits']) + float(stats['get_misses'])) != 0:
-        stats['get_hit_ratio'] = '{.2f}'.format(float(100 * float(stats['get_hits']) /
+        stats['get_hit_ratio'] = '{:.2f}'.format(float(100 * float(stats['get_hits']) /
                                                 (float(stats['get_hits']) + float(stats['get_misses']))))
     else:
         stats['get_hit_ratio'] = '0.0'
@@ -137,7 +137,7 @@ def mget_slabs():
             'endpoint': endpoint,
             'timestamp': timestamp,
             'step': step,
-            'value':'{.2f}'.format(slab_used_percent_value),
+            'value':'{:2f}'.format(slab_used_percent_value),
             'counterType': 'GAUGE',
             'tags': 'port=11211,metric=memcache'
         }
